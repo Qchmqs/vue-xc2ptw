@@ -1,7 +1,12 @@
 <template>
   <div class="hello">
-    <h1 @click='fetchHello'>{{ msg }}</h1>
-    {{ hello }}
+    <h1 v-on:click='fetchHello'>{{ msg }}</h1>
+    <h2 v-if='display'>{{ hello }}</h2>
+    <ul>
+      <li v-for='person in people'>
+        {{ person.name }}
+      </li>
+    <ul>
   </div>
 </template>
 
@@ -10,12 +15,20 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      hello: 'String'
+      hello: 'string',
+      display: false
     }
   },
   methods:{
     fetchHello() {
-      return this.hello = "hello"
+      this.hello = "hello"
+      this.display = true
+    }
+  },
+  computed: {
+    people: () => {
+      const ids = [1,2,3,4,5,6]
+      return ids.map((e) => ({ id: e, name: `person ${e}` }))
     }
   },
   props: {
